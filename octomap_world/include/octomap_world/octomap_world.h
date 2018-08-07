@@ -166,6 +166,9 @@ class OctomapWorld : public WorldBase {
                                              double* probability) const;
   virtual CellStatus getLineStatus(const Eigen::Vector3d& start,
                                    const Eigen::Vector3d& end) const;
+  Eigen::Vector3d rayCast(const Eigen::Vector3d& start,
+                          const Eigen::Vector3d& direction,
+                          bool ignoreUnknownCells) const;
   virtual CellStatus getVisibility(const Eigen::Vector3d& view_point,
                                    const Eigen::Vector3d& voxel_to_test,
                                    bool stop_at_unknown_cell) const;

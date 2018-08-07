@@ -417,6 +417,21 @@ OctomapWorld::CellStatus OctomapWorld::getLineStatus(
   return CellStatus::kFree;
 }
 
+// Query function that calls the castRay function of octree.
+// Unfortunately there is already a fuction castRay for insertion,
+// so this one is called rayCast
+Eigen::Vector3d OctomapWorld::rayCast(const Eigen::Vector3d& start,
+                                      const Eigen::Vector3d& direction,
+                                      bool ignoreUnknownCells) const {
+  octomap::point3d end;
+  if(octree_->castRay(pointEigenToOctomap(start), pointEigenToOctomap(direction),
+                      end, ignoreUnknownCells)) {
+    return pointOctomapToEigen(end);
+  } else {
+    return start;
+  }
+}
+
 OctomapWorld::CellStatus OctomapWorld::getVisibility(
     const Eigen::Vector3d& view_point, const Eigen::Vector3d& voxel_to_test,
     bool stop_at_unknown_cell) const {
